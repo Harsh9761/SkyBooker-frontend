@@ -1,0 +1,38 @@
+<h2>Select Seat 💺</h2>
+
+<div class="seat-grid">
+
+  <button
+    *ngFor="let s of seats"
+    (click)="selectSeat(s.seatNumber)"
+    [disabled]="s.status === 'HELD' || s.status === 'CONFIRMED'"
+    [class.selected]="selectedSeat === s.seatNumber">
+
+    <div class="seat-number">
+      {{ s.seatNumber }}
+    </div>
+
+    <div class="seat-info">
+      <small>{{ s.seatClass }}</small><br>
+      <small>Row {{ s.rowNumber }} - {{ s.columnLetter }}</small><br>
+
+      <span *ngIf="s.window">🪟</span>
+      <span *ngIf="s.aisle">🚶</span>
+      <span *ngIf="s.hasExtraLegroom">🦵</span>
+
+    </div>
+
+  </button>
+
+</div>
+
+<br>
+
+<button
+  class="confirm-btn"
+  (click)="confirmSeat()"
+  [disabled]="!selectedSeat">
+
+  Confirm Seat
+
+</button>

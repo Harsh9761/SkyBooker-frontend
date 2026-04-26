@@ -1,0 +1,60 @@
+<div class="dashboard">
+  <div class="overlay">
+    <h1>Welcome</h1>
+  </div>
+</div>
+
+<div class="search-container">
+
+  <h2>✈ Search Flights</h2>
+
+  <div class="search-box">
+    <input [(ngModel)]="origin" placeholder="From (DEL)" />
+    <input [(ngModel)]="dest" placeholder="To (BOM)" />
+    <input [(ngModel)]="date" type="date" />
+
+    <button (click)="search()">Search</button>
+  </div>
+
+</div>
+
+<hr />
+
+<!-- EMPTY STATE -->
+<div *ngIf="flights.length === 0" class="empty">
+  ✈ No flights found, try searching above
+</div>
+
+<!-- FLIGHT LIST -->
+<div *ngFor="let f of flights" class="flight-card">
+
+  <div class="flight-header">
+    <h3>{{ f.flightNumber }}</h3>
+    <span class="status">{{ f.status }}</span>
+  </div>
+
+  <div class="route">
+    <span>{{ f.originAirportCode }}</span>
+    <span class="arrow">→</span>
+    <span>{{ f.destinationAirportCode }}</span>
+  </div>
+
+  <div class="details">
+    <p>🕒 {{ f.departureTime }}</p>
+    <p>💰 ₹{{ f.basePrice }}</p>
+  </div>
+
+  <button 
+    *ngIf="auth.isLoggedIn()" 
+    (click)="bookFlight(f.id)">
+    Book Now
+  </button>
+
+  
+  <button 
+    *ngIf="!auth.isLoggedIn()" 
+    routerLink="/login">
+    Login to Book
+  </button>
+
+</div>

@@ -1,0 +1,90 @@
+/* Page title */
+h2 {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+/* Seat grid layout */
+.seat-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Seat button */
+.seat-grid button {
+  width: 140px;
+  height: 140px;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+/* hover */
+.seat-grid button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: #4caf50;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+/* selected */
+.seat-grid button.selected {
+  background: #4caf50;
+  color: white;
+  border: none;
+  box-shadow: 0 8px 18px rgba(76,175,80,0.3);
+}
+
+/* disabled */
+.seat-grid button:disabled {
+  background: #f5f5f5;
+  color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* confirm button */
+.confirm-btn {
+  margin-top: 20px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #1976d2;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.confirm-btn:hover:enabled {
+  background: #125aa0;
+  transform: translateY(-2px);
+}
+
+.confirm-btn:disabled {
+  background: #ddd;
+  cursor: not-allowed;
+}
+
+.seat-number {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.seat-info {
+  font-size: 10px;
+  color: #666;
+  line-height: 1.3;
+}
+
+/* when selected, text becomes white */
+.seat-grid button.selected .seat-info {
+  color: #fff;
+}

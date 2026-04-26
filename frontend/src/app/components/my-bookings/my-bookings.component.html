@@ -1,0 +1,48 @@
+<div class="container">
+
+  <h2>✈ My Bookings</h2>
+
+  <div *ngIf="loading" class="loading">
+    Loading bookings...
+  </div>
+
+  <div *ngIf="!loading && bookings.length === 0" class="empty">
+    No bookings found 😢
+  </div>
+
+  <div *ngFor="let b of bookings" class="card">
+
+    <div class="header">
+      <h3>Booking ID</h3>
+      <span>{{ b.bookingId }}</span>
+    </div>
+
+    <div class="info">
+      <p>🎫 PNR: <b>{{ b.pnrCode }}</b></p>
+      <p>💺 Seat: <b>{{ b.seatNumber }}</b></p>
+      <p>💰 ₹{{ b.totalFare }}</p>
+      <p>Status: 
+        <span [class.confirmed]="b.status === 'CONFIRMED'">
+          {{ b.status }}
+        </span>
+      </p>
+    </div>
+
+    <!-- 👤 Passenger Section -->
+    <div class="passenger" *ngIf="passengerMap[b.bookingId] as p">
+
+      <h4>👤 Passenger Details</h4>
+
+      <p>Name:
+        {{ passengerMap[b.bookingId].firstName }}
+        {{ passengerMap[b.bookingId].lastName }}
+      </p>
+
+      <p>🪪 Passport: {{ passengerMap[b.bookingId].passportNumber }}</p>
+      <p>⚧ Gender: {{ passengerMap[b.bookingId].gender }}</p>
+
+    </div>
+
+  </div>
+  
+</div>

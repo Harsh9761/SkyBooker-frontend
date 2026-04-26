@@ -1,0 +1,54 @@
+.container {
+  padding: 20px;
+  font-family: Arial;
+  background: #f5f7fb;
+}
+
+h2 {
+  text-align: center;
+  color: #1e3a8a;
+  margin-bottom: 20px;
+}
+
+.loading, .empty {
+  text-align: center;
+  font-size: 18px;
+  color: gray;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  margin: 15px auto;
+  border-radius: 12px;
+  width: 60%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: #333;
+}
+
+.info p {
+  margin: 5px 0;
+}
+
+.confirmed {
+  color: green;
+  font-weight: bold;
+}
+
+.passenger {
+  margin-top: 10px;
+  padding: 10px;
+  background: #eef6ff;
+  border-radius: 8px;
+}

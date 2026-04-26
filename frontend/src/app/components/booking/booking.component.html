@@ -1,0 +1,48 @@
+<h2>Booking Details ✈</h2>
+
+<div class="form">
+
+  <!-- Contact -->
+  <input [(ngModel)]="contactEmail" placeholder="Email" />
+  <input [(ngModel)]="contactPhone" placeholder="Phone" />
+
+  <!-- Passenger Details -->
+  <h3>👤 Passenger Details</h3>
+
+  <select [(ngModel)]="passenger.title">
+    <option value="Mr">Mr</option>
+    <option value="Ms">Ms</option>
+  </select>
+
+  <input [(ngModel)]="passenger.firstName" placeholder="First Name" />
+  <input [(ngModel)]="passenger.lastName" placeholder="Last Name" />
+
+  <input type="date" [(ngModel)]="passenger.dateOfBirth" />
+
+  <select [(ngModel)]="passenger.gender">
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+  </select>
+
+  <input [(ngModel)]="passenger.passportNumber" placeholder="Passport Number" />
+  <input type="date" [(ngModel)]="passenger.passportExpiry" />
+  <input [(ngModel)]="passenger.nationality" placeholder="Nationality" />
+
+  <!-- Booking Info -->
+  <h3>🧾 Booking Info</h3>
+
+  <select [(ngModel)]="mealPreference">
+    <option value="veg">Veg</option>
+    <option value="nonveg">Non-Veg</option>
+  </select>
+
+  <input type="number" [(ngModel)]="luggageKg" placeholder="Luggage (kg)" />
+
+  <p>Flight: {{ flightId }}</p>
+  <p>Seat: {{ seatNumber }}</p>
+
+  <button (click)="createBooking()">
+    Proceed to Payment
+  </button>
+
+</div>

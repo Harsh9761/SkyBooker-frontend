@@ -1,0 +1,171 @@
+/* GLOBAL */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #eef2f7, #f9fafb);
+  margin: 0;
+  padding: 0;
+}
+
+/* TITLE */
+h2 {
+  text-align: center;
+  color: #0f172a;
+  margin: 25px 0;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+/* SEARCH BOX */
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+input {
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  width: 200px;
+  outline: none;
+  transition: 0.3s;
+  background: white;
+}
+
+input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59,130,246,0.3);
+}
+
+/* BUTTON */
+button {
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(37,99,235,0.3);
+}
+
+/* DEBUG */
+.debug {
+  text-align: center;
+  font-size: 12px;
+  color: gray;
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 25px;
+}
+
+/* FLIGHT CARD */
+.flight-card {
+  background: white;
+  width: 70%;
+  margin: 18px auto;
+  padding: 18px 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
+  border: 1px solid #f1f5f9;
+}
+
+.flight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+/* HEADER */
+.flight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flight-header h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 18px;
+}
+
+/* STATUS */
+.status {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ROUTE */
+.route {
+  text-align: center;
+  font-size: 20px;
+  margin: 12px 0;
+  font-weight: 600;
+  color: #111827;
+}
+
+.arrow {
+  margin: 0 12px;
+  color: #2563eb;
+  font-size: 22px;
+}
+
+/* DETAILS */
+.details {
+  display: flex;
+  justify-content: space-between;
+  color: #374151;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* EXTRA PREMIUM TOUCH */
+.flight-card::before {
+  content: "✈";
+  position: absolute;
+  font-size: 80px;
+  opacity: 0.03;
+  right: 20px;
+  top: 10px;
+}
+
+.dashboard {
+  height: 50vh;
+  width: 100%;
+  background-image: url("https://images.unsplash.com/photo-1525396524423-64f7b55f5b33?w=1600");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* dark blur overlay */
+.overlay {
+  
+  backdrop-filter: blur(10px);
+  
+  border-radius: 16px;
+  color: white;
+  text-align: center;
+}
+
+.overlay h1 {
+  font-size: 40px;
+  font-weight: bold;
+}
