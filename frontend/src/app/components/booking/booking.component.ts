@@ -106,4 +106,7 @@ this.http.post(
   paymentCallback(paymentId: string, transactionId: string, status: string) {
     return this.bookingService.paymentCallback(paymentId, transactionId, status);
   }
+
+  todayDate: string = new Date().toISOString().split('T')[0];
+  
 }

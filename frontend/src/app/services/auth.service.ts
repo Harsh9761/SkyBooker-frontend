@@ -56,4 +56,23 @@ export class AuthService {
   const payload = JSON.parse(atob(token.split('.')[1]));
   return payload.userId || payload.sub;
 }
+
+  getRole(): string {
+    const token = this.getToken();
+
+    if (!token) return '';
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role || '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  isAdmin(): boolean {
+  const role = this.getRole();
+
+  return role === 'ADMIN' || role === 'ROLE_ADMIN';
+}
 }

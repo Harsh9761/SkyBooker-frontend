@@ -1,0 +1,136 @@
+<div class="container">
+
+  <h2>✈ Airline Admin Dashboard</h2>
+
+  <form #airlineForm="ngForm" class="form" (ngSubmit)="createAirline()">
+
+    <!-- NAME -->
+    <input
+      name="name"
+      [(ngModel)]="airline.name"
+      required
+      minlength="3"
+      placeholder="Airline Name"
+      #name="ngModel"
+    />
+    <div class="error" *ngIf="name.invalid && name.touched">
+      Name is required (min 3 chars)
+    </div>
+
+    <!-- IATA -->
+    <input
+      name="iataCode"
+      [(ngModel)]="airline.iataCode"
+      required
+      minlength="2"
+      maxlength="3"
+      placeholder="IATA Code"
+      #iata="ngModel"
+    />
+    <div class="error" *ngIf="iata.invalid && iata.touched">
+      IATA must be 2-3 chars
+    </div>
+
+    <!-- ICAO -->
+    <input
+      name="icaoCode"
+      [(ngModel)]="airline.icaoCode"
+      required
+      minlength="3"
+      maxlength="4"
+      placeholder="ICAO Code"
+      #icao="ngModel"
+    />
+    <div class="error" *ngIf="icao.invalid && icao.touched">
+      ICAO must be 3-4 chars
+    </div>
+
+    <!-- LOGO -->
+    <input
+      name="logoUrl"
+      [(ngModel)]="airline.logoUrl"
+      required
+      pattern="https?://.+"
+      placeholder="Logo URL"
+      #logo="ngModel"
+    />
+    <div class="error" *ngIf="logo.invalid && logo.touched">
+      Enter valid URL
+    </div>
+
+    <!-- COUNTRY -->
+    <input
+      name="country"
+      [(ngModel)]="airline.country"
+      required
+      minlength="2"
+      placeholder="Country"
+      #country="ngModel"
+    />
+    <div class="error" *ngIf="country.invalid && country.touched">
+      Country required
+    </div>
+
+    <!-- EMAIL -->
+    <input
+      name="contactEmail"
+      [(ngModel)]="airline.contactEmail"
+      required
+      email
+      placeholder="Email"
+      #email="ngModel"
+    />
+    <div class="error" *ngIf="email.invalid && email.touched">
+      Invalid email
+    </div>
+
+    <!-- PHONE -->
+    <input
+      name="contactPhone"
+      [(ngModel)]="airline.contactPhone"
+      required
+      pattern="^[0-9]{10}$"
+      placeholder="Phone"
+      #phone="ngModel"
+    />
+    <div class="error" *ngIf="phone.invalid && phone.touched">
+      Phone must be 10 digits
+    </div>
+
+    <!-- BUTTON -->
+    <button type="submit" [disabled]="airlineForm.invalid">
+      Create Airline
+    </button>
+
+  </form>
+
+  <hr>
+
+  <!-- TABLE -->
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>IATA</th>
+      <th>Country</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+
+    <tr *ngFor="let a of airlines">
+      <td>{{a.name}}</td>
+      <td>{{a.iataCode}}</td>
+      <td>{{a.country}}</td>
+      <td>
+        <span [style.color]="a.isActive ? 'green' : 'red'">
+          {{ a.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </td>
+      <td>
+        <button (click)="deactivate(a.airlineId!)" [disabled]="!a.isActive">
+          Deactivate
+        </button>
+      </td>
+    </tr>
+  </table>
+
+</div>

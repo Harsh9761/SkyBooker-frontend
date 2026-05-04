@@ -3,48 +3,103 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb, #60a5fa);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Card */
 .auth-box {
-  width: 320px;
-  padding: 30px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  width: 360px;
+  padding: 35px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
   text-align: center;
+  transition: transform 0.3s ease;
 }
 
+.auth-box:hover {
+  transform: translateY(-5px);
+}
+
+/* Heading */
 .auth-box h2 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   color: #1e3a8a;
+  font-weight: 600;
 }
 
+/* Inputs */
 .auth-box input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-size: 14px;
 }
 
+/* Focus */
+.auth-box input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* Button */
 .auth-box button {
   width: 100%;
-  padding: 10px;
-  background: #2563eb;
+  padding: 12px;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 15px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
+/* Hover */
 .auth-box button:hover {
-  background: #1e40af;
+  background: linear-gradient(135deg, #1e40af, #2563eb);
+  transform: scale(1.02);
 }
 
+/* Disabled */
+.auth-box button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Links */
 .auth-box a {
   color: #2563eb;
   text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-box a:hover {
+  text-decoration: underline;
+}
+
+/* Error */
+small {
+  display: block;
+  text-align: left;
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .auth-box {
+    width: 90%;
+    padding: 25px;
+  }
 }

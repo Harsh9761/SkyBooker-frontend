@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
@@ -58,6 +59,43 @@ export class BookingService {
 getPassengerByBookingId(bookingId: string) {
   return this.http.get(
     `http://localhost:8080/passengers/booking/${bookingId}`,
+    this.getHeaders()
+  );
+}
+
+getBookingById(bookingId: string) {
+  return this.http.get(
+    `${this.API}/${bookingId}`,
+    this.getHeaders()
+  );
+}
+
+cancelBooking(bookingId: string) {
+
+  const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  return this.http.put(
+    `http://localhost:8080/bookings/${bookingId}/cancel`,
+    {},
+    { headers }
+  );
+}
+
+refundPayment(paymentId: string) {
+  return this.http.post(
+    `http://localhost:8086/payments/refund/${paymentId}`,
+    {}
+  );
+}
+
+createPayment(data: any) {
+  return this.http.post(
+    "http://localhost:8086/payments/initiate",
+    data,
     this.getHeaders()
   );
 }

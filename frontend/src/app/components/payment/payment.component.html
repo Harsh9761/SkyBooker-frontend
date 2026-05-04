@@ -1,9 +1,50 @@
-<h2>Payment 💳</h2>
+<div class="payment-container">
 
-<div class="pay-box">
+  <h2>💳 Payment</h2>
 
-  <p>Booking ID: {{ bookingId }}</p>
+  <div *ngIf="loading" class="loading">
+    Loading payment details...
+  </div>
 
-  <button (click)="pay()">Pay Now</button>
+  <div *ngIf="!loading && booking">
+
+    <div class="payment-card">
+
+      <!-- LEFT: Booking + Passenger -->
+      <div class="left">
+
+        <h3>✈ Booking Summary</h3>
+
+        <p><b>Booking ID:</b> {{ bookingId }}</p>
+        <p><b>PNR:</b> {{ booking.pnrCode }}</p>
+        <p><b>Status:</b> {{ booking.status }}</p>
+        <p><b>Seat:</b> {{ booking.seatNumber }}</p>
+
+        <hr />
+
+        <h3>👤 Passenger</h3>
+
+        <p><b>Name:</b> {{ passenger.firstName }} {{ passenger.lastName }}</p>
+        <p><b>Gender:</b> {{ passenger.gender }}</p>
+        <p><b>Passport:</b> {{ passenger.passportNumber }}</p>
+        <p><b>Type:</b> {{ passenger.passengerType }}</p>
+
+      </div>
+
+      <!-- RIGHT: Payment -->
+      <div class="right">
+
+        <div class="price-box">
+          <p>Total Fare</p>
+          <h1>₹{{ booking.totalFare }}</h1>
+        </div>
+
+        <button (click)="pay()">💳 Pay Now</button>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>

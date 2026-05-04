@@ -14,8 +14,9 @@ export class NavbarComponent implements OnInit {
 
   isLoggedIn = false;
   username = 'Guest';
+  role = '';
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.checkLogin();
@@ -29,8 +30,11 @@ export class NavbarComponent implements OnInit {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
         this.username = payload.sub;
+        this.role = payload.role;
+        
       } catch {
         this.username = 'Guest';
+        this.role = '';
       }
     }
   }
@@ -39,6 +43,7 @@ export class NavbarComponent implements OnInit {
     this.auth.logout();
     this.isLoggedIn = false;
     this.username = 'Guest';
+    this.role = '';
     this.router.navigate(['/login']);
   }
 }

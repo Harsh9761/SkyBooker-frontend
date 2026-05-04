@@ -1,0 +1,26 @@
+<h2 class="title">💺 Add Seats</h2>
+
+<div class="card">
+
+  <!-- Flight Dropdown -->
+  <select [(ngModel)]="flightId">
+    <option value="">Select Flight</option>
+
+    <option *ngFor="let f of flights" [value]="f.id">
+      {{ f.flightNumber }} ({{ f.originAirportCode }} → {{ f.destinationAirportCode }})
+    </option>
+  </select>
+
+  <!-- Seat Class -->
+  <select [(ngModel)]="seatClass">
+    <option value="ECONOMY">Economy</option>
+    <option value="BUSINESS">Business</option>
+    <option value="FIRST_CLASS">First Class</option>
+  </select>
+
+  <!-- Button -->
+  <button (click)="generate10Seats()">
+    Generate 10 Seats ✈
+  </button>
+
+</div>

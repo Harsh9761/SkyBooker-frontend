@@ -1,38 +1,90 @@
 <h2>Select Seat 💺</h2>
 
+<!-- GRID -->
 <div class="seat-grid">
 
   <button
     *ngFor="let s of seats"
     (click)="selectSeat(s.seatNumber)"
     [disabled]="s.status === 'HELD' || s.status === 'CONFIRMED'"
-    [class.selected]="selectedSeat === s.seatNumber">
+    [class.selected]="selectedSeat === s.seatNumber"
+    [class.booked]="s.status === 'CONFIRMED' || s.status === 'HELD'">
 
+    <!-- Seat Number -->
     <div class="seat-number">
       {{ s.seatNumber }}
     </div>
 
-    <div class="seat-info">
-      <small>{{ s.seatClass }}</small><br>
-      <small>Row {{ s.rowNumber }} - {{ s.columnLetter }}</small><br>
+    <!-- Seat Class -->
+    <div class="seat-class">
+      {{ s.seatClass }}
+    </div>
 
+    <!-- Extra Info -->
+    <div class="seat-extra">
+      Row {{ s.rowNumber }}{{ s.columnLetter }}
+    </div>
+
+    <!-- Icons -->
+    <div class="icons">
       <span *ngIf="s.window">🪟</span>
       <span *ngIf="s.aisle">🚶</span>
       <span *ngIf="s.hasExtraLegroom">🦵</span>
-
     </div>
 
   </button>
 
 </div>
 
-<br>
-
 <button
   class="confirm-btn"
   (click)="confirmSeat()"
   [disabled]="!selectedSeat">
-
   Confirm Seat
-
 </button>
+
+<div class="airline-explainer">
+
+  <h3>✈ Seat Guide</h3>
+
+  <div class="guide-grid">
+
+    <div class="guide-card">
+      <div class="icon">💺</div>
+      <h4>Seat Types</h4>
+      <p>Economy seats are standard. Extra legroom seats offer more space and comfort.</p>
+    </div>
+
+    <div class="guide-card">
+      <div class="icon">🪟</div>
+      <h4>Window Seat</h4>
+      <p>Perfect for views and comfort. Ideal for passengers who prefer less movement.</p>
+    </div>
+
+    <div class="guide-card">
+      <div class="icon">🚶</div>
+      <h4>Aisle Seat</h4>
+      <p>Easy access to walk around and exit quickly during landing.</p>
+    </div>
+
+    <div class="guide-card">
+      <div class="icon">🦵</div>
+      <h4>Extra Legroom</h4>
+      <p>More space for stretching legs. Usually located near emergency exits.</p>
+    </div>
+
+    <div class="guide-card">
+      <div class="icon">🔴</div>
+      <h4>Booked Seats</h4>
+      <p>These seats are already reserved and cannot be selected.</p>
+    </div>
+
+    <div class="guide-card">
+      <div class="icon">🟢</div>
+      <h4>Available Seats</h4>
+      <p>Seats available for booking in real-time based on flight capacity.</p>
+    </div>
+
+  </div>
+
+</div>

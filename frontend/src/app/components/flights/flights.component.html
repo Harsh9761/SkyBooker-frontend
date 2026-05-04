@@ -1,0 +1,56 @@
+<h2 class="title">✈ Available Flights</h2>
+
+<div class="top-bar">
+  <button *ngIf="role==='ADMIN'" routerLink="/add-flight" class="add-btn">
+    + Add Flight
+  </button>
+</div>
+
+<div class="flight-container">
+
+  <div class="flight-card" *ngFor="let f of flights">
+
+  <h3>{{ f.flightNumber }}</h3>
+
+  <p>📍 {{ f.originAirportCode }} → {{ f.destinationAirportCode }}</p>
+  <p>🕒 {{ f.departureTime | date:'short' }}</p>
+  <p>💺 Seats: {{ f.availableSeats }}/{{ f.totalSeats }}</p>
+  <p>💰 ₹{{ f.basePrice }}</p>
+
+  <!-- STATUS DISPLAY -->
+  <p>
+    Status:
+    <span class="status" [ngClass]="f.status">
+      {{ f.status }}
+    </span>
+  </p>
+
+  <!-- ADMIN CONTROLS -->
+  <div *ngIf="role==='ADMIN'" class="admin-actions">
+
+    <!-- STATUS DROPDOWN -->
+    <select #statusSel class="status-select">
+      <option value="ON_TIME">ON_TIME</option>
+      <option value="DELAYED">DELAYED</option>
+      <option value="CANCELLED">CANCELLED</option>
+      <option value="DEPARTED">DEPARTED</option>
+      <option value="ARRIVED">ARRIVED</option>
+    </select>
+
+    <button
+      class="update-btn"
+      (click)="updateStatus(f.id, statusSel.value)">
+      Update Status
+    </button>
+
+    <button
+      class="delete-btn"
+      (click)="deleteFlight(f.id)">
+      Delete
+    </button>
+
+  </div>
+
+</div>
+
+</div>

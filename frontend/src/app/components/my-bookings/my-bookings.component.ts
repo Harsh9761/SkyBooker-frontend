@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookingService } from '../../services/booking.service';
+import { FlightService } from '../../services/flight.service';
 
 @Component({
   selector: 'app-my-bookings',
@@ -13,10 +14,12 @@ export class MyBookingsComponent implements OnInit {
 
   bookings: any[] = [];
   passengerMap: any = {};   // NEW
+  flightMap: any = {};
   loading = true;
 
   constructor(
     private bookingService: BookingService,
+    private flightService: FlightService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -34,6 +37,13 @@ export class MyBookingsComponent implements OnInit {
 
         this.bookings = Array.isArray(data) ? data : (data?.data || []);
 
+        this.flightService.getFlights().subscribe((flights: any) => {
+          console.log("FLIGHTS RESPONSE:", flights);
+          flights.forEach((f: any) => {
+            this.flightMap[f.flightId] = f;
+          });
+
+        });
         //  fetch passengers for each booking
         this.bookings.forEach((b: any) => {
 
@@ -77,4 +87,45 @@ export class MyBookingsComponent implements OnInit {
       return null;
     }
   }
+
+  getPassenger(bookingId: string) {
+  return this.passengerMap?.[bookingId] || [];
+}
+
+cancel(bookingId: string) {
+
+  const booking = this.bookings.find(
+    b => String(b.bookingId).trim() === String(bookingId).trim()
+  );
+
+  if (!booking) {
+    alert("Booking not found");
+    return;
+  }
+
+  if (booking.status === 'CANCELLED') {
+    return;
+  }
+
+  if (!confirm("Cancel this booking?")) return;
+
+  this.bookingService.cancelBooking(bookingId).subscribe({
+    next: () => {
+
+      // UI update only
+      this.bookings = this.bookings.map(b => {
+        if (String(b.bookingId) === String(bookingId)) {
+          return { ...b, status: 'CANCELLED' };
+        }
+        return b;
+      });
+
+      alert("Booking Cancelled ✔");
+    },
+
+    error: () => {
+      alert("Cancel failed ❌");
+    }
+  });
+}
 }

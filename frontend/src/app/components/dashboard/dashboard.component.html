@@ -1,12 +1,12 @@
 <div class="dashboard">
   <div class="overlay">
-    <h1>Welcome</h1>
+    <h1>Welcome ✈</h1>
+    <p>Find and book your perfect flight</p>
   </div>
 </div>
-
+<br><br>
 <div class="search-container">
-
-  <h2>✈ Search Flights</h2>
+  <h2>Search Flights</h2>
 
   <div class="search-box">
     <input [(ngModel)]="origin" placeholder="From (DEL)" />
@@ -15,10 +15,7 @@
 
     <button (click)="search()">Search</button>
   </div>
-
 </div>
-
-<hr />
 
 <!-- EMPTY STATE -->
 <div *ngIf="flights.length === 0" class="empty">
@@ -28,33 +25,102 @@
 <!-- FLIGHT LIST -->
 <div *ngFor="let f of flights" class="flight-card">
 
-  <div class="flight-header">
-    <h3>{{ f.flightNumber }}</h3>
-    <span class="status">{{ f.status }}</span>
+  <!-- LEFT: Airline -->
+  <div class="left">
+    <img [src]="f.logo || 'https://img.icons8.com/color/48/airplane-take-off.png'" class="logo" />
+    <p class="airline">{{ f.airline || 'Air India' }}</p>
+    <small class="flight-no">{{ f.flightNumber }}</small>
   </div>
 
-  <div class="route">
-    <span>{{ f.originAirportCode }}</span>
-    <span class="arrow">→</span>
-    <span>{{ f.destinationAirportCode }}</span>
+  <!-- CENTER: Timing + Route -->
+  <div class="center">
+    <div class="time">
+      <h3>{{ f.departureTime }}</h3>
+      <span>{{ f.originAirportCode }}</span>
+    </div>
+
+    <div class="middle">
+      <span class="duration">{{ f.duration || '2h 30m' }}</span>
+      <div class="line"></div>
+      <span class="nonstop">Non-stop</span>
+    </div>
+
+    <div class="time">
+      <h3>{{ f.arrivalTime || '—' }}</h3>
+      <span>{{ f.destinationAirportCode }}</span>
+    </div>
   </div>
 
-  <div class="details">
-    <p>🕒 {{ f.departureTime }}</p>
-    <p>💰 ₹{{ f.basePrice }}</p>
+  <!-- RIGHT: Price + CTA -->
+  <div class="right">
+    <h2 class="price">₹{{ f.basePrice }}</h2>
+    <small class="seats">🔥 {{ f.seatsLeft || 5 }} seats left</small>
+
+    <button *ngIf="auth.isLoggedIn()" (click)="bookFlight(f.id)">
+      Book Now
+    </button>
+
+    <button *ngIf="!auth.isLoggedIn()" routerLink="/login" class="secondary">
+      Login
+    </button>
   </div>
 
-  <button 
-    *ngIf="auth.isLoggedIn()" 
-    (click)="bookFlight(f.id)">
-    Book Now
-  </button>
-
-  
-  <button 
-    *ngIf="!auth.isLoggedIn()" 
-    routerLink="/login">
-    Login to Book
-  </button>
+  <!-- TAG -->
+  <span class="tag">Cheapest</span>
 
 </div>
+<br>
+<hr>
+<br>
+
+<section class="features">
+  <div class="feature-card">
+    <h3>Best Deals</h3>
+    <p>Get exclusive offers and discounts on every booking.</p>
+  </div>
+
+  <div class="feature-card">
+    <h3>Secure Booking</h3>
+    <p>Your data is safe with us with top-notch security.</p>
+  </div>
+
+  <div class="feature-card">
+    <h3>24/7 Support</h3>
+    <p>We are here to help you anytime, anywhere.</p>
+  </div>
+
+  <div class="feature-card">
+    <h3>Worldwide Flights</h3>
+    <p>Book flights to any destination across the globe.</p>
+  </div>
+</section>
+
+
+
+<footer class="wave-footer">
+
+  <!-- Waves -->
+  <div class="wave-container">
+    <svg class="waves" viewBox="0 24 150 28" preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s58 18 88 18 
+        58-18 88-18 58 18 88 18v44h-352z"></path>
+      </defs>
+
+      <g class="wave-parallax">
+        <use href="#wave-path" x="48" y="0" fill="rgba(96,165,250,0.3)"></use>
+        <use href="#wave-path" x="48" y="3" fill="rgba(59,130,246,0.5)"></use>
+        <use href="#wave-path" x="48" y="5" fill="rgba(37,99,235,0.7)"></use>
+        <use href="#wave-path" x="48" y="7" fill="#1e293b"></use>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Content -->
+  <div class="footer-content">
+    <h2>SkyBook ✈️</h2>
+    <p>Fly smarter, travel better. Book flights across the world with ease.</p>
+    <p class="copyright">© 2026 SkyBook. All rights reserved.</p>
+  </div>
+
+</footer>

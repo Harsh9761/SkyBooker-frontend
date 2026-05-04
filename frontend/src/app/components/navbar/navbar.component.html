@@ -8,12 +8,19 @@
     <li><a routerLink="/">Home</a></li>
     <li><a routerLink="/flights">Flights</a></li>
 
-    <!-- 👇 sirf login hone par dikhe -->
+    <!-- sirf login hone par dikhe -->
     <li *ngIf="isLoggedIn">
       <a routerLink="/my-bookings">My Bookings</a>
     </li>
 
     <li><a routerLink="/offers">Offers</a></li>
+    <a *ngIf="auth.isAdmin()" routerLink="/add-seats">
+      Add Seats
+    </a>
+
+    <a routerLink="/admin/airlines" *ngIf="auth.isAdmin()">
+      Manage Airlines
+    </a>
   </ul>
 
   <div class="auth-section">

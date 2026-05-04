@@ -1,17 +1,63 @@
 <div class="auth-container">
-
   <div class="auth-box">
     <h2>Register 🧾</h2>
 
-    <input type="text" [(ngModel)]="fullName" placeholder="Full Name" />
-    <input type="email" [(ngModel)]="email" placeholder="Email" />
-    <input type="password" [(ngModel)]="password" placeholder="Password" />
+    <form #registerForm="ngForm">
 
-    <input type="text" [(ngModel)]="phone" placeholder="Phone (10 digits)" />
-    <input type="text" [(ngModel)]="passportNumber" placeholder="Passport Number" />
-    <input type="text" [(ngModel)]="nationality" placeholder="Nationality" />
+      <!-- Full Name -->
+      <input type="text" name="fullName" [(ngModel)]="fullName"
+        placeholder="Full Name" required minlength="3" #fn="ngModel" />
 
-    <button (click)="register()">Register</button>
+      <small *ngIf="fn.invalid && fn.touched">
+        Name must be at least 3 characters
+      </small>
+
+      <!-- Email -->
+      <input type="email" name="email" [(ngModel)]="email"
+        placeholder="Email" required email #em="ngModel" />
+
+      <small *ngIf="em.invalid && em.touched">
+        Enter valid email
+      </small>
+
+      <!-- Password -->
+      <input type="password" name="password" [(ngModel)]="password"
+        placeholder="Password" required minlength="6" #pw="ngModel" />
+
+      <small *ngIf="pw.invalid && pw.touched">
+        Password must be at least 6 characters
+      </small>
+
+      <!-- Phone -->
+      <input type="text" name="phone" [(ngModel)]="phone"
+        placeholder="Phone (10 digits)" required pattern="^[0-9]{10}$" #ph="ngModel" />
+
+      <small *ngIf="ph.invalid && ph.touched">
+        Enter valid 10-digit phone number
+      </small>
+
+      <!-- Passport -->
+      <input type="text" name="passportNumber" [(ngModel)]="passportNumber"
+        placeholder="Passport Number" required minlength="6" #pp="ngModel" />
+
+      <small *ngIf="pp.invalid && pp.touched">
+        Passport must be at least 6 characters
+      </small>
+
+      <!-- Nationality -->
+      <input type="text" name="nationality" [(ngModel)]="nationality"
+        placeholder="Nationality" required #nt="ngModel" />
+
+      <small *ngIf="nt.invalid && nt.touched">
+        Nationality is required
+      </small>
+
+      <!-- Button -->
+      <button (click)="register()" [disabled]="registerForm.invalid">
+        Register
+      </button>
+
+    </form>
 
     <p>
       Already have an account?
@@ -19,5 +65,4 @@
     </p>
 
   </div>
-
 </div>

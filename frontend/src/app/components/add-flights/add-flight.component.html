@@ -1,0 +1,60 @@
+<h2 class="title">✈ Add New Flight</h2>
+
+<form #f="ngForm" (ngSubmit)="submit()" class="form">
+
+  <div class="grid">
+
+    <input name="flightNumber" [(ngModel)]="flight.flightNumber"
+      placeholder="Flight Number" required />
+
+    <input name="originAirportCode" [(ngModel)]="flight.originAirportCode"
+      placeholder="Origin (e.g. DEL)" required />
+
+    <input name="destinationAirportCode" [(ngModel)]="flight.destinationAirportCode"
+      placeholder="Destination (e.g. MUM)" required />
+
+    <input type="datetime-local" name="departureTime"
+      [(ngModel)]="flight.departureTime" required />
+
+    <input type="datetime-local" name="arrivalTime"
+      [(ngModel)]="flight.arrivalTime" required />
+
+    <input type="number" name="durationMinutes"
+      [(ngModel)]="flight.durationMinutes"
+      placeholder="Duration (minutes)" required />
+
+    <input name="aircraftType" [(ngModel)]="flight.aircraftType"
+      placeholder="Aircraft Type" required />
+
+    <input type="number" name="totalSeats"
+      [(ngModel)]="flight.totalSeats"
+      placeholder="Total Seats" required />
+
+    <input type="number" name="availableSeats"
+      [(ngModel)]="flight.availableSeats"
+      placeholder="Available Seats" required />
+
+    <input type="number" name="basePrice"
+      [(ngModel)]="flight.basePrice"
+      placeholder="Price ₹" required />
+
+    <input type="number" name="airlineId"
+      [(ngModel)]="flight.airlineId"
+      placeholder="Airline ID" required />
+
+    <select name="status" [(ngModel)]="flight.status" required>
+    <option value="">Select Status</option>
+    <option value="ON_TIME">On Time</option>
+    <option value="DELAYED">Delayed</option>
+    <option value="CANCELLED">Cancelled</option>
+    <option value="DEPARTED">Departed</option>
+    <option value="ARRIVED">Arrived</option>
+    </select>
+
+  </div>
+
+  <button [disabled]="f.invalid" class="submit-btn">
+    Add Flight ✈
+  </button>
+
+</form>

@@ -21,7 +21,7 @@ export class SeatService {
 
   holdSeat(flightId: number, seatNumber: string, userId: string) {
 
-  const token = localStorage.getItem("token"); // 🔥 FIX
+  const token = localStorage.getItem("token"); // FIX
 
   return this.http.put(`${this.API}/hold`, null, {
     params: {
@@ -43,4 +43,18 @@ export class SeatService {
       }
     });
   }
+
+  addSeats(seats: any[]) {
+  const token = localStorage.getItem('token');
+
+  return this.http.post(
+    'http://localhost:8080/seats/add',
+    seats,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+}
 }
