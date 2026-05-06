@@ -1,0 +1,98 @@
+/* Page */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Header */
+th {
+  background-color: #2c3e50;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+/* Rows */
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+/* Hover effect */
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Status colors */
+span {
+  font-weight: bold;
+}
+
+/* Dropdown */
+select {
+  padding: 5px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+/* Buttons */
+button {
+  padding: 6px 10px;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+/* Update button */
+button:first-of-type {
+  background-color: #3498db;
+  color: white;
+}
+
+button:first-of-type:hover {
+  background-color: #2980b9;
+}
+
+/* Deactivate */
+button:nth-of-type(2) {
+  background-color: #e74c3c;
+  color: white;
+}
+
+button:nth-of-type(2):hover {
+  background-color: #c0392b;
+}
+
+/* Activate */
+button:nth-of-type(3) {
+  background-color: #2ecc71;
+  color: white;
+}
+
+button:nth-of-type(3):hover {
+  background-color: #27ae60;
+}
+
+/* Disabled buttons */
+button:disabled {
+  background-color: #ccc !important;
+  cursor: not-allowed;
+}

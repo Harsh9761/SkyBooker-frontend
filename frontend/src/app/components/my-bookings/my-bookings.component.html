@@ -29,7 +29,16 @@
       </div>
 
       <p>🎫 PNR: <b>{{ b.pnrCode }}</b></p>
-      <p>💺 Seat: <b>{{ b.seatNumber }}</b></p>
+
+      <!-- 🔥 FIXED SEATS -->
+      <p>
+        💺 Seats:
+        <b>
+          {{ b.seatNumbers?.length
+              ? b.seatNumbers.join(', ')
+              : b.seatNumber }}
+        </b>
+      </p>
 
       <p>🛫 Departure:
         <b>{{ flightMap[b.flightId]?.departureTime | date:'short' }}</b>
@@ -57,14 +66,19 @@
 
       <div class="barcode">||| ||| |||| |||</div>
 
-      <h4>Passenger</h4>
+      <h4>Passengers</h4>
 
       <div *ngIf="getPassenger(b.bookingId) as p">
 
         <div *ngFor="let ps of p">
+
           <p><b>{{ ps.firstName }} {{ ps.lastName }}</b></p>
           <p>Passport: {{ ps.passportNumber }}</p>
           <p>Gender: {{ ps.gender }}</p>
+          <p>Seat: {{ ps.seatNumber }}</p>
+
+          <hr />
+
         </div>
 
       </div>

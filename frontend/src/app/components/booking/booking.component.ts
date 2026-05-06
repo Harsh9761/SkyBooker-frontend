@@ -15,24 +15,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BookingComponent {
 
-  flightId: any;
-  seatNumber: any;
+  flightId!: number;
+  seatNumbers: string[] = [];
+
+  passengers: any[] = [];
 
   contactEmail = '';
   contactPhone = '';
   mealPreference = 'veg';
   luggageKg = 0;
 
-  passenger = {
-    title: 'Mr',
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    gender: 'Male',
-    passportNumber: '',
-    passportExpiry: '',
-    nationality: ''
-  };
+  todayDate: string = new Date().toISOString().split('T')[0];
+  today: string = new Date().toISOString().split('T')[0];
 
   constructor(
     private route: ActivatedRoute,
@@ -43,70 +37,133 @@ export class BookingComponent {
   ) {}
 
   ngOnInit() {
+
     this.route.queryParams.subscribe(params => {
-      this.flightId = params['flightId'];
-      this.seatNumber = params['seat'];
+
+      this.flightId = Number(params['flightId']);
+
+      try {
+        this.seatNumbers = JSON.parse(params['seats'] || '[]');
+      } catch (e) {
+        this.seatNumbers = [];
+      }
+
+      if (this.seatNumbers.length === 0) {
+        console.error("No seats selected");
+        return;
+      }
+
+      this.passengers = this.seatNumbers.map(() => ({
+        title: 'Mr',
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        gender: 'Male',
+        passportNumber: '',
+        passportExpiry: '',
+        nationality: ''
+      }));
     });
   }
+
+  // =========================
+  // ✅ VALIDATION LOGIC
+  // =========================
+
+  isValidPassenger(passenger: any): boolean {
+
+    const today = new Date().toISOString().split('T')[0];
+
+    // DOB must be past
+    if (passenger.dateOfBirth >= today) {
+      return false;
+    }
+
+    // Passport expiry must be future
+    if (passenger.passportExpiry <= today) {
+      return false;
+    }
+
+    return true;
+  }
+
+  validateAllPassengers(): boolean {
+    return this.passengers.every(p => this.isValidPassenger(p));
+  }
+
+  // =========================
+  // CREATE BOOKING
+  // =========================
 
   createBooking() {
 
-  const request = {
-    userId: this.auth.getUserId(),
-    flightId: this.flightId,
-    seatNumber: this.seatNumber,
-    contactEmail: this.contactEmail,
-    contactPhone: this.contactPhone,
-    mealPreference: this.mealPreference,
-    luggageKg: this.luggageKg,
-    tripType: "ONE_WAY"
-  };
-
-  this.bookingService.createBooking(request)
-    .subscribe({
-      next: (res: any) => {
-
-        const bookingId = res.bookingId;
-
-        const passengerPayload = {
-          bookingId: bookingId,
-          ...this.passenger, 
-          seatNumber: this.seatNumber
-        };
-
-        const token = localStorage.getItem('token');
-
-this.http.post(
-  "http://localhost:8080/passengers",
-  passengerPayload,
-  {
-    headers: {
-      Authorization: `Bearer ${token}`
+    // 🚫 BLOCK IF INVALID
+    if (!this.validateAllPassengers()) {
+      alert("Please fix DOB / Passport expiry dates");
+      return;
     }
+
+    const request = {
+      userId: Number(this.auth.getUserId()),
+      flightId: this.flightId,
+      seatNumbers: this.seatNumbers,
+      contactEmail: this.contactEmail,
+      contactPhone: this.contactPhone,
+      mealPreference: this.mealPreference,
+      luggageKg: Number(this.luggageKg),
+      tripType: "ONE_WAY"
+    };
+
+    this.bookingService.createBooking(request)
+      .subscribe({
+        next: (res: any) => {
+
+          const bookingId = res.bookingId;
+          const token = localStorage.getItem('token');
+
+          let completed = 0;
+
+          this.seatNumbers.forEach((seat, index) => {
+
+            const passenger = this.passengers[index];
+
+            const payload = {
+              bookingId,
+              ...passenger,
+              seatNumber: seat,
+              flightId: this.flightId
+            };
+
+            this.http.post(
+              "http://localhost:8080/passengers",
+              payload,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              }
+            ).subscribe({
+              next: () => {
+
+                completed++;
+
+                if (completed === this.seatNumbers.length) {
+                  this.router.navigate(['/payment'], {
+                    queryParams: { bookingId }
+                  });
+                }
+              },
+              error: (err) => {
+                console.error("Passenger save failed:", err);
+              }
+            });
+
+          });
+
+        },
+        error: (err) => {
+          console.error("Booking failed:", err);
+        }
+      });
   }
-).subscribe({
-  next: () => {
-    console.log("Passenger saved ✔");
-    this.router.navigate(['/payment'], {
-      queryParams: { bookingId }
-    });
-  },
-  error: (err) => console.error(err)
-});
-
-      },
-      error: (err) => console.error(err)
-    });
-}
-
-  pay(bookingId: string, method: string) {
-    return this.bookingService.pay(bookingId, method);
-  }
-
-  paymentCallback(paymentId: string, transactionId: string, status: string) {
-    return this.bookingService.paymentCallback(paymentId, transactionId, status);
-  }
-
-  todayDate: string = new Date().toISOString().split('T')[0];
-  
 }

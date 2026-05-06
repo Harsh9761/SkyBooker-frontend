@@ -22,14 +22,19 @@
 
         <hr />
 
-        <h3>👤 Passenger</h3>
+        <h3>👤 Passengers</h3>
 
-        <p><b>Name:</b> {{ passenger.firstName }} {{ passenger.lastName }}</p>
-        <p><b>Gender:</b> {{ passenger.gender }}</p>
-        <p><b>Passport:</b> {{ passenger.passportNumber }}</p>
-        <p><b>Type:</b> {{ passenger.passengerType }}</p>
+<div *ngFor="let p of passengers">
 
-      </div>
+  <p><b>Name:</b> {{ p.firstName }} {{ p.lastName }}</p>
+  <p><b>Gender:</b> {{ p.gender }}</p>
+  <p><b>Passport:</b> {{ p.passportNumber }}</p>
+  <p><b>Seat:</b> {{ p.seatNumber }}</p>
+  <p><b>Type:</b> {{ p.passengerType }}</p>
+
+  <hr />
+
+</div>
 
       <!-- RIGHT: Payment -->
       <div class="right">

@@ -76,6 +76,11 @@ export class AuthService {
   return role === 'ADMIN' || role === 'ROLE_ADMIN';
 }
 
+  isStaff(): boolean {
+    const role = this.getRole();
+    return role === 'STAFF' || role === 'ROLE_STAFF';
+  }
+
   sendOtp(data: any) {
   return this.http.post(`${this.API}/send-otp`, data);
 }

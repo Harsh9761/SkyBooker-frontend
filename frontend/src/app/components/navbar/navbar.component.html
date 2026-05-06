@@ -13,8 +13,10 @@
       <a routerLink="/my-bookings">My Bookings</a>
     </li>
 
-    <li><a routerLink="/offers">Offers</a></li>
-    <a *ngIf="auth.isAdmin()" routerLink="/add-seats">
+    <a *ngIf="auth.isAdmin()" routerLink="/admin">Admin Panel</a>
+
+
+    <a *ngIf="auth.isAdmin() || auth.isStaff()" routerLink="/add-seats">
       Add Seats
     </a>
 

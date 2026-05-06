@@ -12,12 +12,13 @@
       <input type="email"
         name="email"
         [(ngModel)]="contactEmail"
-        placeholder="Enter your email"
         required
         email
-        #email="ngModel" />
-      <small *ngIf="email.invalid && email.touched">
-        Enter a valid email address
+        #email="ngModel"
+        placeholder="Enter your email" />
+
+      <small class="error" *ngIf="email.invalid && email.touched">
+        Enter a valid email
       </small>
     </div>
 
@@ -26,120 +27,151 @@
       <input type="text"
         name="phone"
         [(ngModel)]="contactPhone"
-        placeholder="Enter 10-digit phone"
         required
         pattern="^[0-9]{10}$"
-        #phone="ngModel" />
-      <small *ngIf="phone.invalid && phone.touched">
-        Enter a valid 10-digit phone number
+        #phone="ngModel"
+        placeholder="Enter 10-digit phone" />
+
+      <small class="error" *ngIf="phone.invalid && phone.touched">
+        Enter valid 10-digit phone number
       </small>
     </div>
   </div>
 
-  <!-- PASSENGER -->
-  <div class="section">
-    <h3>👤 Passenger Details</h3>
+  <!-- PASSENGERS -->
+  <div class="section" *ngFor="let passenger of passengers; let i = index">
+
+    <h3>👤 Passenger {{ i + 1 }} (Seat: {{ seatNumbers[i] }})</h3>
+
+    <div class="input-group">
+      <label>Title</label>
+      <select [(ngModel)]="passengers[i].title"
+        name="title{{i}}"
+        required
+        #title="ngModel">
+
+        <option value="">Select</option>
+        <option value="Mr">Mr</option>
+        <option value="Ms">Ms</option>
+      </select>
+
+      <small class="error" *ngIf="title.invalid && title.touched">
+        Title required
+      </small>
+    </div>
 
     <div class="row">
-      <div class="input-group">
-        <label>Title</label>
-        <select name="title" [(ngModel)]="passenger.title" required #title="ngModel">
-          <option value="">Select</option>
-          <option value="Mr">Mr</option>
-          <option value="Ms">Ms</option>
-        </select>
-      </div>
 
       <div class="input-group">
         <label>First Name</label>
-        <input name="firstName"
-          [(ngModel)]="passenger.firstName"
-          placeholder="First Name"
+        <input [(ngModel)]="passengers[i].firstName"
+          name="firstName{{i}}"
           required
           minlength="2"
-          #fn="ngModel" />
+          #fname="ngModel" />
+
+        <small class="error" *ngIf="fname.invalid && fname.touched">
+          Min 2 characters required
+        </small>
       </div>
 
       <div class="input-group">
         <label>Last Name</label>
-        <input name="lastName"
-          [(ngModel)]="passenger.lastName"
-          placeholder="Last Name"
+        <input [(ngModel)]="passengers[i].lastName"
+          name="lastName{{i}}"
           required
           minlength="2"
-          #ln="ngModel" />
+          #lname="ngModel" />
+
+        <small class="error" *ngIf="lname.invalid && lname.touched">
+          Min 2 characters required
+        </small>
       </div>
+
     </div>
 
-    <small *ngIf="(fn.invalid && fn.touched) || (ln.invalid && ln.touched)">
-      Name must be at least 2 characters
-    </small>
-
     <div class="row">
+
+      <!-- DOB (PAST ONLY) -->
       <div class="input-group">
         <label>Date of Birth</label>
         <input type="date"
-          name="dob"
-          [(ngModel)]="passenger.dateOfBirth"
+          [(ngModel)]="passengers[i].dateOfBirth"
+          name="dob{{i}}"
           required
-          [max]="todayDate"
+          [max]="today"
           #dob="ngModel" />
+
+        <small class="error" *ngIf="dob.invalid && dob.touched">
+          DOB must be a past date
+        </small>
       </div>
 
       <div class="input-group">
         <label>Gender</label>
-        <select name="gender"
-          [(ngModel)]="passenger.gender"
+        <select [(ngModel)]="passengers[i].gender"
+          name="gender{{i}}"
           required
           #gender="ngModel">
+
           <option value="">Select</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
+          <option>Male</option>
+          <option>Female</option>
         </select>
+
+        <small class="error" *ngIf="gender.invalid && gender.touched">
+          Gender required
+        </small>
       </div>
+
     </div>
 
-    <small *ngIf="(dob.invalid && dob.touched) || (gender.invalid && gender.touched)">
-      Please provide valid DOB (past date) and gender
-    </small>
-
     <div class="row">
+
       <div class="input-group">
         <label>Passport Number</label>
-        <input name="passportNumber"
-          [(ngModel)]="passenger.passportNumber"
-          placeholder="Enter passport number"
+        <input [(ngModel)]="passengers[i].passportNumber"
+          name="passport{{i}}"
           required
           minlength="6"
-          #pass="ngModel" />
+          maxlength="12"
+          #passport="ngModel" />
+
+        <small class="error" *ngIf="passport.invalid && passport.touched">
+          Enter valid passport number
+        </small>
       </div>
 
+      <!-- PASSPORT EXPIRY (FUTURE ONLY) -->
       <div class="input-group">
         <label>Passport Expiry</label>
         <input type="date"
-          name="passportExpiry"
-          [(ngModel)]="passenger.passportExpiry"
+          [(ngModel)]="passengers[i].passportExpiry"
+          name="passportExpiry{{i}}"
           required
-          [min]="todayDate"
-          #exp="ngModel" />
+          [min]="today"
+          #expiry="ngModel" />
+
+        <small class="error" *ngIf="expiry.invalid && expiry.touched">
+          Expiry must be a future date
+        </small>
       </div>
+
+      <div class="input-group">
+        <label>Nationality</label>
+        <input [(ngModel)]="passengers[i].nationality"
+          name="nation{{i}}"
+          required
+          minlength="2"
+          #nation="ngModel" />
+
+        <small class="error" *ngIf="nation.invalid && nation.touched">
+          Nationality required
+        </small>
+      </div>
+
     </div>
 
-    <small *ngIf="(pass.invalid && pass.touched) || (exp.invalid && exp.touched)">
-      Enter valid passport details (expiry must be future date)
-    </small>
-
-    <div class="input-group">
-      <label>Nationality</label>
-      <input name="nationality"
-        [(ngModel)]="passenger.nationality"
-        placeholder="Enter nationality"
-        required
-        #nat="ngModel" />
-      <small *ngIf="nat.invalid && nat.touched">
-        Nationality is required
-      </small>
-    </div>
   </div>
 
   <!-- BOOKING INFO -->
@@ -147,39 +179,45 @@
     <h3>🧾 Booking Info</h3>
 
     <div class="row">
+
       <div class="input-group">
         <label>Meal Preference</label>
-        <select name="mealPreference"
-          [(ngModel)]="mealPreference"
+        <select [(ngModel)]="mealPreference"
+          name="meal"
           required
           #meal="ngModel">
+
           <option value="">Select</option>
           <option value="veg">Veg</option>
           <option value="nonveg">Non-Veg</option>
         </select>
+
+        <small class="error" *ngIf="meal.invalid && meal.touched">
+          Meal selection required
+        </small>
       </div>
 
       <div class="input-group">
         <label>Luggage (kg)</label>
         <input type="number"
-          name="luggageKg"
           [(ngModel)]="luggageKg"
-          placeholder="0 - 40 kg"
+          name="luggage"
           min="0"
           max="40"
-          required
-          #lug="ngModel" />
-      </div>
-    </div>
+          #luggage="ngModel" />
 
-    <small *ngIf="(meal.invalid && meal.touched) || (lug.invalid && lug.touched)">
-      Enter valid meal preference and luggage (0–40kg)
-    </small>
+        <small class="error" *ngIf="luggage.invalid && luggage.touched">
+          Must be between 0–40 kg
+        </small>
+      </div>
+
+    </div>
 
     <div class="summary">
       <p>✈ Flight: <b>{{ flightId }}</b></p>
-      <p>💺 Seat: <b>{{ seatNumber }}</b></p>
+      <p>💺 Seats: <b>{{ seatNumbers.join(', ') }}</b></p>
     </div>
+
   </div>
 
   <!-- BUTTON -->

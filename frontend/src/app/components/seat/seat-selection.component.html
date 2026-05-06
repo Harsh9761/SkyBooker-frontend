@@ -7,7 +7,7 @@
     *ngFor="let s of seats"
     (click)="selectSeat(s.seatNumber)"
     [disabled]="s.status === 'HELD' || s.status === 'CONFIRMED'"
-    [class.selected]="selectedSeat === s.seatNumber"
+    [class.selected]="selectedSeats.includes(s.seatNumber)"
     [class.booked]="s.status === 'CONFIRMED' || s.status === 'HELD'">
 
     <!-- Seat Number -->
@@ -36,13 +36,16 @@
 
 </div>
 
+<!-- CONFIRM BUTTON -->
 <button
   class="confirm-btn"
   (click)="confirmSeat()"
-  [disabled]="!selectedSeat">
-  Confirm Seat
+  [disabled]="selectedSeats.length === 0">
+
+  Confirm Seat ({{ selectedSeats.length }})
 </button>
 
+<!-- GUIDE -->
 <div class="airline-explainer">
 
   <h3>✈ Seat Guide</h3>

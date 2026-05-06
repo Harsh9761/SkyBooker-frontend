@@ -1,0 +1,60 @@
+<h2>Admin Panel</h2>
+
+<table border="1" width="100%" style="text-align: center; border-collapse: collapse;">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Status</th>
+    <th>Change Role</th>
+    <th>Actions</th>
+  </tr>
+
+  <tr *ngFor="let user of users">
+    
+    <!-- ✅ ID FIX -->
+    <td>{{ user.userId }}</td>
+
+    <td>{{ user.name }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.role }}</td>
+
+    <!-- ✅ STATUS FIX -->
+    <td>
+      <span [style.color]="user.active ? 'green' : 'red'">
+        {{ user.active ? 'ACTIVE' : 'INACTIVE' }}
+      </span>
+    </td>
+
+    <!-- ✅ ROLE CHANGE -->
+    <td>
+      <select #role>
+        <option value="PASSENGER">PASSENGER</option>
+        <option value="STAFF">STAFF</option>
+      </select>
+
+      <button (click)="changeRole(user.userId, role.value)">
+        Update
+      </button>
+    </td>
+
+    <!-- ✅ ACTIONS -->
+    <td>
+      <button 
+        (click)="deactivateUser(user.userId)"
+        [disabled]="!user.active"
+        style="background-color: red; color: white;">
+        Deactivate
+      </button>
+
+      <button 
+        (click)="activateUser(user.userId)"
+        [disabled]="user.active"
+        style="background-color: green; color: white;">
+        Activate
+      </button>
+    </td>
+
+  </tr>
+</table>

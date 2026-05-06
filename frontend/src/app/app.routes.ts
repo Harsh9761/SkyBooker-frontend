@@ -10,6 +10,7 @@ import { FlightsComponent } from './components/flights/flights.component';
 import { AddFlightComponent } from './components/add-flights/add-flight.component';
 import { AddSeatsComponent } from './components/add-seats/add-seats.component';
 import { AirlineAdminComponent } from './components/airline/airline.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 export const routes: Routes = [
@@ -35,5 +36,9 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./components/reset/reset-password.component')
       .then(m => m.ResetPasswordComponent)
-}
+},
+  {
+    path: 'admin',
+    component: AdminComponent
+  }
 ];

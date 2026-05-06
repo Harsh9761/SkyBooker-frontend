@@ -15,7 +15,9 @@ export class SeatSelectionComponent {
 
   flightId!: number;
   seats: any[] = [];
-  selectedSeat = '';
+
+  // 🔥 CHANGED: single → multiple
+  selectedSeats: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -25,41 +27,47 @@ export class SeatSelectionComponent {
   ) {}
 
   ngOnInit() {
-  this.route.params.subscribe(params => {
-    this.flightId = +params['id'];
-    this.loadSeats();
-  });
-}
-
-  loadSeats() {
-  this.seatService.getSeatsByFlight(this.flightId)
-    .subscribe({
-      next: (data: any) => {
-        console.log(" SEATS FROM API:", data); // IMPORTANT
-        this.seats = [...data];
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error("❌ ERROR:", err);
-      }
+    this.route.params.subscribe(params => {
+      this.flightId = +params['id'];
+      this.loadSeats();
     });
-}
-
-  selectSeat(seatNumber: string) {
-    this.selectedSeat = seatNumber;
   }
 
+  loadSeats() {
+    this.seatService.getSeatsByFlight(this.flightId)
+      .subscribe({
+        next: (data: any) => {
+          this.seats = [...data];
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error("ERROR:", err);
+        }
+      });
+  }
+
+  // 🔥 MULTI-SEAT TOGGLE LOGIC
+  selectSeat(seatNumber: string) {
+
+    const index = this.selectedSeats.indexOf(seatNumber);
+
+    if (index > -1) {
+      this.selectedSeats.splice(index, 1); // remove
+    } else {
+      this.selectedSeats.push(seatNumber); // add
+    }
+  }
+
+  // 🔥 SEND MULTIPLE SEATS
   confirmSeat() {
 
-  if (!this.selectedSeat) return;
+    if (this.selectedSeats.length === 0) return;
 
-  this.router.navigate(['/booking'], {
-    queryParams: {
-      flightId: this.flightId,
-      seat: this.selectedSeat
-    }
-  });
-}
-
-  
+    this.router.navigate(['/booking'], {
+      queryParams: {
+        flightId: this.flightId,
+        seats: JSON.stringify(this.selectedSeats) // 👈 important
+      }
+    });
+  }
 }

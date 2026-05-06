@@ -13,7 +13,7 @@ import { FlightService } from '../../services/flight.service';
 export class MyBookingsComponent implements OnInit {
 
   bookings: any[] = [];
-  passengerMap: any = {};   // NEW
+  passengerMap: any = {};
   flightMap: any = {};
   loading = true;
 
@@ -37,28 +37,29 @@ export class MyBookingsComponent implements OnInit {
 
         this.bookings = Array.isArray(data) ? data : (data?.data || []);
 
+        // FLIGHTS
         this.flightService.getFlights().subscribe((flights: any) => {
-          console.log("FLIGHTS RESPONSE:", flights);
           flights.forEach((f: any) => {
             this.flightMap[f.flightId] = f;
           });
-
         });
-        //  fetch passengers for each booking
+
+        // PASSENGERS PER BOOKING
         this.bookings.forEach((b: any) => {
 
           this.bookingService.getPassengerByBookingId(b.bookingId)
             .subscribe({
               next: (p: any) => {
-                console.log("PASSENGER RESPONSE:", p);
+
                 this.passengerMap = {
-                ...this.passengerMap,
-                [String(b.bookingId).trim()]: p
-              };
+                  ...this.passengerMap,
+                  [String(b.bookingId).trim()]: Array.isArray(p) ? p : [p]
+                };
+
                 this.cdr.detectChanges();
               },
-              error: (err) => {
-                console.warn("Passenger not found:", err);
+              error: () => {
+                this.passengerMap[String(b.bookingId).trim()] = [];
               }
             });
 
@@ -89,43 +90,32 @@ export class MyBookingsComponent implements OnInit {
   }
 
   getPassenger(bookingId: string) {
-  return this.passengerMap?.[bookingId] || [];
-}
-
-cancel(bookingId: string) {
-
-  const booking = this.bookings.find(
-    b => String(b.bookingId).trim() === String(bookingId).trim()
-  );
-
-  if (!booking) {
-    alert("Booking not found");
-    return;
+    return this.passengerMap?.[String(bookingId).trim()] || [];
   }
 
-  if (booking.status === 'CANCELLED') {
-    return;
+  cancel(bookingId: string) {
+
+    const booking = this.bookings.find(
+      b => String(b.bookingId).trim() === String(bookingId).trim()
+    );
+
+    if (!booking || booking.status === 'CANCELLED') return;
+
+    if (!confirm("Cancel this booking?")) return;
+
+    this.bookingService.cancelBooking(bookingId).subscribe({
+      next: () => {
+
+        this.bookings = this.bookings.map(b => {
+          if (String(b.bookingId) === String(bookingId)) {
+            return { ...b, status: 'CANCELLED' };
+          }
+          return b;
+        });
+
+        alert("Booking Cancelled ✔");
+      },
+      error: () => alert("Cancel failed ❌")
+    });
   }
-
-  if (!confirm("Cancel this booking?")) return;
-
-  this.bookingService.cancelBooking(bookingId).subscribe({
-    next: () => {
-
-      // UI update only
-      this.bookings = this.bookings.map(b => {
-        if (String(b.bookingId) === String(bookingId)) {
-          return { ...b, status: 'CANCELLED' };
-        }
-        return b;
-      });
-
-      alert("Booking Cancelled ✔");
-    },
-
-    error: () => {
-      alert("Cancel failed ❌");
-    }
-  });
-}
 }
