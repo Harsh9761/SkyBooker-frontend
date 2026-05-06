@@ -20,9 +20,17 @@
         Password must be at least 6 characters
       </small>
 
+      <div class="forgot-link">
+        <a routerLink="/reset-password">Forgot Password?</a>
+      </div>
+
       <!-- Button -->
       <button (click)="login()" [disabled]="loginForm.invalid">
         Login
+      </button>
+
+      <button type="button" class="google-btn" (click)="loginWithGoogle()">
+        Continue with Google
       </button>
 
     </form>

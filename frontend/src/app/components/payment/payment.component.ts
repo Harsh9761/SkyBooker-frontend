@@ -128,7 +128,7 @@ export class PaymentComponent implements OnInit {
 
         handler: (response: any) => {
 
-          // ✅ STEP 2: CALL PAYMENT SERVICE DIRECTLY (IMPORTANT FIX)
+          //STEP 2: CALL PAYMENT SERVICE DIRECTLY (IMPORTANT FIX)
           this.http.post(
             'http://localhost:8086/payments/process',
             null,
@@ -143,7 +143,7 @@ export class PaymentComponent implements OnInit {
 
             next: () => {
 
-              // ✅ STEP 3: Notification (same as before)
+              // STEP 3: Notification (same as before)
               this.http.post(
                 'http://localhost:8080/notifications/booking-confirmation',
                 {

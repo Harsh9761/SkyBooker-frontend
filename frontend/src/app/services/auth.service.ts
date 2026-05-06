@@ -75,4 +75,12 @@ export class AuthService {
 
   return role === 'ADMIN' || role === 'ROLE_ADMIN';
 }
+
+  sendOtp(data: any) {
+  return this.http.post(`${this.API}/send-otp`, data);
+}
+
+verifyOtp(data: any) {
+  return this.http.post(`${this.API}/verify-otp`, data);
+}
 }

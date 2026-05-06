@@ -29,5 +29,11 @@ export const routes: Routes = [
   {
     path: 'admin/airlines',
     component: AirlineAdminComponent
-  }
+  },
+  {
+  path: 'reset-password',
+  loadComponent: () =>
+    import('./components/reset/reset-password.component')
+      .then(m => m.ResetPasswordComponent)
+}
 ];

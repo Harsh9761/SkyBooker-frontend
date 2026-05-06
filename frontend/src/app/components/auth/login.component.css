@@ -103,3 +103,30 @@ small {
     padding: 25px;
   }
 }
+
+
+.google-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.google-btn:hover {
+  background: #f3f4f6;
+}
+
+.forgot-link {
+  text-align: right;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+
+.forgot-link a {
+  font-size: 13px;
+  color: #2563eb;
+}
