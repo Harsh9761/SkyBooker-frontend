@@ -88,4 +88,18 @@ export class AuthService {
 verifyOtp(data: any) {
   return this.http.post(`${this.API}/verify-otp`, data);
 }
+
+  sendRegisterOtp(email: string) {
+  return this.http.post(
+    `${this.API}/send-register-otp`,
+    { email }
+  );
+}
+
+verifyRegisterOtp(data: any) {
+  return this.http.post(
+    `${this.API}/verify-register-otp`,
+    data
+  );
+}
 }

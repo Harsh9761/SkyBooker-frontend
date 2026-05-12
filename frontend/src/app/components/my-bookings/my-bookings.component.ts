@@ -113,9 +113,9 @@ export class MyBookingsComponent implements OnInit {
           return b;
         });
 
-        alert("Booking Cancelled ✔");
+        alert("Booking Cancelled ");
       },
-      error: () => alert("Cancel failed ❌")
+      error: () => alert("Cancel failed ")
     });
   }
 }
