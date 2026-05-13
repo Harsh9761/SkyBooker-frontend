@@ -38,12 +38,12 @@ export class AddFlightComponent {
 
     this.flightService.addFlight(this.flight).subscribe({
       next: () => {
-        alert("Flight added successfully ✈");
+        alert("Flight added successfully ");
         this.router.navigate(['/flights']);
       },
       error: (err) => {
         console.error(err);
-        alert("Failed to add flight ❌");
+        alert("Failed to add flight ");
       }
     });
   }

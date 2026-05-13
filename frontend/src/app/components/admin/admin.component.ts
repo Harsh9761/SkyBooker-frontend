@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
     this.loadUsers();
   }
 
-  // 🔑 Authorization Header
+  // Authorization Header
   getAuthHeaders() {
     const token = localStorage.getItem('token');
 
@@ -33,30 +33,30 @@ export class AdminComponent implements OnInit {
     };
   }
 
-  // ✅ Load Users (JSON)
+  //  Load Users
   loadUsers() {
-    this.http.get<any[]>('http://localhost:8080/auth/users', this.getAuthHeaders())
+    this.http.get<any[]>('https://skybooker-api-gateway.onrender.com/auth/users', this.getAuthHeaders())
       .subscribe({
         next: (res) => {
-          console.log("USERS API RESPONSE 👉", res);
+          console.log("USERS API RESPONSE ", res);
           this.users = res || [];
           this.cdr.detectChanges();
         },
         error: (err) => {
-          console.error("ERROR 👉", err);
+          console.error("ERROR ", err);
           alert('Failed to load users');
         }
       });
   }
 
-  // ✅ Change Role (TEXT RESPONSE)
+  // Change Role
   changeRole(userId: number, role: string) {
     this.http.put(
-      `http://localhost:8080/auth/admin/role?userId=${userId}&role=${role}`,
+      `https://skybooker-api-gateway.onrender.com/auth/admin/role?userId=${userId}&role=${role}`,
       {},
       {
         ...this.getAuthHeaders(),
-        responseType: 'text'   // 🔥 FIX
+        responseType: 'text'   
       }
     ).subscribe({
       next: (res) => {
@@ -71,14 +71,14 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  // ✅ Deactivate User (TEXT RESPONSE)
+  //  Deactivate User 
   deactivateUser(userId: number) {
     this.http.put(
-      `http://localhost:8080/auth/admin/deactivate/${userId}`,
+      `https://skybooker-api-gateway.onrender.com/auth/admin/deactivate/${userId}`,
       {},
       {
         ...this.getAuthHeaders(),
-        responseType: 'text'   // 🔥 FIX
+        responseType: 'text' 
       }
     ).subscribe({
       next: (res) => {
@@ -93,14 +93,14 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  // ✅ Activate User (TEXT RESPONSE)
+  // Activate User
   activateUser(userId: number) {
     this.http.put(
-      `http://localhost:8080/auth/admin/activate/${userId}`,
+      `https://skybooker-api-gateway.onrender.com/auth/admin/activate/${userId}`,
       {},
       {
         ...this.getAuthHeaders(),
-        responseType: 'text'   // 🔥 FIX
+        responseType: 'text'   
       }
     ).subscribe({
       next: (res) => {

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class SeatService {
 
-  API = "http://localhost:8080/seats";
+  API = "https://skybooker-api-gateway.onrender.com/seats";
 
   constructor(private http: HttpClient) {}
 
@@ -48,7 +48,7 @@ export class SeatService {
   const token = localStorage.getItem('token');
 
   return this.http.post(
-    'http://localhost:8080/seats/add',
+    'https://skybooker-api-gateway.onrender.com/seats/add',
     seats,
     {
       headers: {

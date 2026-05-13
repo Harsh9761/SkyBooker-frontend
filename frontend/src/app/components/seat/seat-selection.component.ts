@@ -16,7 +16,6 @@ export class SeatSelectionComponent {
   flightId!: number;
   seats: any[] = [];
 
-  // 🔥 CHANGED: single → multiple
   selectedSeats: string[] = [];
 
   constructor(
@@ -46,7 +45,7 @@ export class SeatSelectionComponent {
       });
   }
 
-  // 🔥 MULTI-SEAT TOGGLE LOGIC
+  // MULTI-SEAT TOGGLE LOGIC
   selectSeat(seatNumber: string) {
 
     const index = this.selectedSeats.indexOf(seatNumber);
@@ -58,7 +57,7 @@ export class SeatSelectionComponent {
     }
   }
 
-  // 🔥 SEND MULTIPLE SEATS
+  // SEND MULTIPLE SEATS
   confirmSeat() {
 
     if (this.selectedSeats.length === 0) return;
@@ -66,7 +65,7 @@ export class SeatSelectionComponent {
     this.router.navigate(['/booking'], {
       queryParams: {
         flightId: this.flightId,
-        seats: JSON.stringify(this.selectedSeats) // 👈 important
+        seats: JSON.stringify(this.selectedSeats)
       }
     });
   }

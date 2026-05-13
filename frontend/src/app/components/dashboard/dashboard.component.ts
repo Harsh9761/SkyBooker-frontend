@@ -73,7 +73,6 @@ ngOnInit() {
 
       localStorage.setItem('token', tokenFromUrl);
 
-      // URL clean (optional but recommended)
       this.router.navigate([], {
         queryParams: {},
         replaceUrl: true

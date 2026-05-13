@@ -5,7 +5,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class BookingService {
 
-  API = "http://localhost:8080/bookings";
+  API = "https://skybooker-api-gateway.onrender.com/bookings";
 
   constructor(private http: HttpClient) {}
 
@@ -58,7 +58,7 @@ export class BookingService {
 
 getPassengerByBookingId(bookingId: string) {
   return this.http.get(
-    `http://localhost:8080/passengers/booking/${bookingId}`,
+    `https://skybooker-api-gateway.onrender.com/passengers/booking/${bookingId}`,
     this.getHeaders()
   );
 }
@@ -79,7 +79,7 @@ cancelBooking(bookingId: string) {
   });
 
   return this.http.put(
-    `http://localhost:8080/bookings/${bookingId}/cancel`,
+    `https://skybooker-api-gateway.onrender.com/bookings/${bookingId}/cancel`,
     {},
     { headers }
   );
@@ -87,14 +87,14 @@ cancelBooking(bookingId: string) {
 
 refundPayment(paymentId: string) {
   return this.http.post(
-    `http://localhost:8086/payments/refund/${paymentId}`,
+    `https://skybooker-payment-service.onrender.com/payments/refund/${paymentId}`,
     {}
   );
 }
 
 createPayment(data: any) {
   return this.http.post(
-    "http://localhost:8086/payments/initiate",
+    "https://skybooker-payment-service.onrender.com/payments/initiate",
     data,
     this.getHeaders()
   );

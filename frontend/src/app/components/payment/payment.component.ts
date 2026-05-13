@@ -17,7 +17,6 @@ export class PaymentComponent implements OnInit {
   bookingId: string = '';
   booking: any = null;
 
-  // ✅ FIX: single passenger → multiple passengers
   passengers: any[] = [];
 
   loading = true;
@@ -67,7 +66,6 @@ export class PaymentComponent implements OnInit {
 
             console.log("PASSENGERS:", p);
 
-            // ✅ FIX HERE
             this.passengers = Array.isArray(p) ? p : [p];
 
             this.loading = false;
@@ -124,7 +122,7 @@ export class PaymentComponent implements OnInit {
           handler: (response: any) => {
 
             this.http.post(
-              'http://localhost:8086/payments/process',
+              'https://skybooker-payment-service.onrender.com/payments/process',
               null,
               {
                 params: {
@@ -138,7 +136,7 @@ export class PaymentComponent implements OnInit {
               next: () => {
 
                 this.http.post(
-                  'http://localhost:8080/notifications/booking-confirmation',
+                  'https://skybooker-api-gateway.onrender.com/notifications/booking-confirmation',
                   {
                     userId: userId,
                     bookingId: bookingId,
@@ -153,7 +151,7 @@ export class PaymentComponent implements OnInit {
                   }
                 ).subscribe();
 
-                alert("Payment Successful ✔");
+                alert("Payment Successful ");
                 this.router.navigate(['/']);
               },
 

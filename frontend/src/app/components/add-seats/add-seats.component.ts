@@ -29,7 +29,7 @@ export class AddSeatsComponent implements OnInit {
   loadFlights() {
     this.flightService.getFlights().subscribe({
       next: (res: any) => {
-        console.log("Flights 👉", res);
+        console.log("Flights ", res);
         this.flights = res;
       },
       error: (err) => console.error(err)
@@ -39,7 +39,7 @@ export class AddSeatsComponent implements OnInit {
   generate10Seats() {
 
     if (!this.flightId) {
-      alert("Please select a flight ❌");
+      alert("Please select a flight ");
       return;
     }
 
@@ -71,13 +71,13 @@ export class AddSeatsComponent implements OnInit {
       row++;
     }
 
-    console.log("Generated Seats 👉", seats);
+    console.log("Generated Seats ", seats);
 
     this.seatService.addSeats(seats).subscribe({
-      next: () => alert("10 Seats added successfully 💺"),
+      next: () => alert("10 Seats added successfully "),
       error: (err) => {
         console.error(err);
-        alert("Failed to add seats ❌");
+        alert("Failed to add seats");
       }
     });
   }

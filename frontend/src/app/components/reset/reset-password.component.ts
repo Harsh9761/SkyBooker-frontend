@@ -96,7 +96,7 @@ onOtpInput(e: any, i: number) {
     inputs[i].value = '';
     this.otp[i] = '';
 
-    //  agar already empty tha → piche jao
+    //  agar already empty tha piche jao
     if (i > 0 && !inputs[i].value) {
       inputs[i - 1].focus();
     }

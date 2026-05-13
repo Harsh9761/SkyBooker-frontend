@@ -41,7 +41,7 @@ export class AirlineAdminComponent implements OnInit {
   createAirline(): void {
     this.service.createAirline(this.airline).subscribe({
       next: () => {
-        alert("Airline created ✔");
+        alert("Airline created ");
         this.loadAirlines();
         this.resetForm();
       },
@@ -55,7 +55,7 @@ export class AirlineAdminComponent implements OnInit {
 
     this.service.deactivateAirline(id).subscribe({
       next: () => {
-        alert("Airline deactivated ✔");
+        alert("Airline deactivated ");
         this.loadAirlines();
       },
       error: (err) => console.error(err)

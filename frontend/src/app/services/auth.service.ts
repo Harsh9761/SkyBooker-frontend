@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  API = "http://localhost:8080/auth"; // via API Gateway
+  API = "https://skybooker-api-gateway.onrender.com/auth"; // via API Gateway
 
   constructor(private http: HttpClient) {}
 

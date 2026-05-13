@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class FlightService {
 
-  API = "http://localhost:8080/flights";
+  API = "https://skybooker-api-gateway.onrender.com/flights";
 
   constructor(private http: HttpClient) {}
 
@@ -21,13 +21,13 @@ export class FlightService {
   }
 
   getFlights(): Observable<any[]> {
-  return this.http.get<any[]>("http://localhost:8080/flights/all");
+  return this.http.get<any[]>("https://skybooker-api-gateway.onrender.com/flights/all");
 }
   deleteFlight(id: number) {
   const token = localStorage.getItem('token');
 
   return this.http.delete(
-    `http://localhost:8080/flights/${id}`,
+    `https://skybooker-api-gateway.onrender.com/flights/${id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`
@@ -40,7 +40,7 @@ export class FlightService {
   const token = localStorage.getItem('token');
 
   return this.http.post(
-    'http://localhost:8080/flights',
+    'https://skybooker-api-gateway.onrender.com/flights',
     data,
     {
       headers: {
@@ -54,7 +54,7 @@ export class FlightService {
   const token = localStorage.getItem('token');
 
   return this.http.patch(
-    `http://localhost:8080/flights/${id}/status?status=${status}`,
+    `https://skybooker-api-gateway.onrender.com/flights/${id}/status?status=${status}`,
     {},
     {
       headers: {

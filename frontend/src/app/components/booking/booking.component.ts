@@ -66,9 +66,6 @@ export class BookingComponent {
     });
   }
 
-  // =========================
-  // ✅ VALIDATION LOGIC
-  // =========================
 
   isValidPassenger(passenger: any): boolean {
 
@@ -91,13 +88,11 @@ export class BookingComponent {
     return this.passengers.every(p => this.isValidPassenger(p));
   }
 
-  // =========================
-  // CREATE BOOKING
-  // =========================
+
 
   createBooking() {
 
-    // 🚫 BLOCK IF INVALID
+  
     if (!this.validateAllPassengers()) {
       alert("Please fix DOB / Passport expiry dates");
       return;
@@ -135,7 +130,7 @@ export class BookingComponent {
             };
 
             this.http.post(
-              "http://localhost:8080/passengers",
+              "https://skybooker-api-gateway.onrender.com/passengers",
               payload,
               {
                 headers: {

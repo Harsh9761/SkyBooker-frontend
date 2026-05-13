@@ -19,7 +19,7 @@ export interface AirlineDTO {
 })
 export class AirlineService {
 
-  private baseUrl = 'http://localhost:8080/airlines';
+  private baseUrl = 'https://skybooker-api-gateway.onrender.com/airlines';
 
   constructor(private http: HttpClient) {}
 
